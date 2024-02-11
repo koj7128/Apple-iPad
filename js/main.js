@@ -1,3 +1,4 @@
+//장바구니
 const basketStarterEl = document.querySelector('header .basket-starter')
 const basketEl = basketStarterEl.querySelector('.basket')
 
@@ -21,4 +22,39 @@ function showBasket() {
 }
 function hideBasket() {
   basketEl.classList.remove('show')
+}
+
+//검색
+const headerEl = document.querySelector('header')
+const headerMenuEls = [...headerEl.querySelectorAll('ul.menu > li')] //배열데이터, 전개연산자
+const searchWrapEl = headerEl.querySelector('.search-wrap')
+const searchStarterEl = headerEl.querySelector('.search-starter')
+const searchCloserEl = headerEl.querySelector('.search-closer')
+const searchShadowEl = headerEl.querySelector('.shadow')
+const searchDelayEls = [...searchWrapEl.querySelectorAll('li')]
+
+searchStarterEl.addEventListener('click', showSearch)
+searchCloserEl.addEventListener('click', hideSearch)
+searchShadowEl.addEventListener('click', hideSearch)
+
+function showSearch() {
+  headerEl.classList.add('searching')
+  document.documentElement.classList.add('fixed')
+  headerMenuEls.reverse().forEach(function(el, index) {
+    el.style.transitionDelay = index * .4 / headerMenuEls.length + 's'
+  })
+  searchDelayEls.forEach(function(el, index) {
+    el.style.transitionDelay = index * .4 / searchDelayEls.length + 's'
+  })
+}
+function hideSearch() {
+  headerEl.classList.remove('searching')
+  document.documentElement.classList.remove('fixed')
+  headerMenuEls.reverse().forEach(function(el, index) {
+    el.style.transitionDelay = index * .4 / headerMenuEls.length + 's'
+  })
+  searchDelayEls.reverse().forEach(function(el, index) {
+    el.style.transitionDelay = index * .4 / searchDelayEls.length + 's'
+  })
+  searchDelayEls.reverse()
 }
